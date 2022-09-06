@@ -9,32 +9,27 @@ function isValid(s: string): boolean {
     let stack: string[] = [];
 
     for (let i = 0; i < s.length; i++) {
-        let cur: string = s[i];
         if (stack.length == 0) {
-            stack.push(cur);
+            stack.push(s[i]);
             continue;
         }
-        let temp;
 
-        switch (cur) {
+        switch (s[i]) {
             case '{':
             case '(':
             case '[':
-                stack.push(cur);
+                stack.push(s[i]);
                 break;
             case '}':
-                temp = stack.pop();
-                if (temp != '{')
+                if (stack.pop() != '{')
                     return false;
                 break;
             case ')':
-                temp = stack.pop();
-                if (temp != '(')
+                if (stack.pop() != '(')
                     return false;
                 break;
             case ']':
-                temp = stack.pop();
-                if (temp != '[')
+                if (stack.pop() != '[')
                     return false;
                 break;
         }
