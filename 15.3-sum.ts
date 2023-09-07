@@ -6,45 +6,73 @@
 
 // @lc code=start
 function threeSum(nums: number[]): number[][] {
-  nums = nums.sort(function (a, b) {
-    return a - b;
-  });
-  console.log(nums);
+  nums = nums.sort((a, b) => a - b);
+  const res: number[][] = [];
+  for (let i = 0; i < nums.length; i++) {
+    if (i > 0 && nums[i] === nums[i - 1]) {
+      continue;
+    }
 
-  let response: any = [];
-
-  const n = nums.length;
-
-  for (let i = 0; i < n - 1; i++) {
-    const num = nums[i];
     let l = i + 1;
-    let r = n - 1;
+    let r = nums.length - 1;
+
     while (l < r) {
-      console.log("indexes are ", i, l, r);
-      console.log("values are ", num, nums[l], nums[r]);
+      let sum = nums[i] + nums[l] + nums[r];
 
-      const sum = num + nums[l] + nums[r];
-      if (sum === 0) {
-        let candidate = [num, nums[l], nums[r]];
-        // check for duplicates
-        let matchFound = response.some(
-          (element: any) =>
-            JSON.stringify(element) === JSON.stringify(candidate)
-        );
-
-        if (!matchFound) response.push(candidate);
-        l++;
+      if (sum > 0) {
         r--;
       } else if (sum < 0) {
         l++;
       } else {
-        r--;
+        res.push([nums[i], nums[l], nums[r]]);
+        l++;
+        // ignore duplicate values for 'l'
+        while (nums[l] === nums[l - 1] && l < r) {
+          l++;
+        }
       }
     }
   }
 
-  return response;
+  return res;
 }
+
+/*******************FIRST SOLUTION *******************/
+// slower solution
+// function firstSolution(nums: number[]): number[][] {
+//   const res: number[][] = [];
+//   let l = 0;
+//   let r = nums.length - 1;
+//   let triplets: any = {};
+//   while (nums[l] < 1 && r > l + 1) {
+//     if (nums[l] === nums[l - 1]) {
+//       r = nums.length - 1;
+//       l++;
+//       continue;
+//     }
+
+//     for (let m = l + 1; m < r; m++) {
+//       if (nums[l] + nums[m] + nums[r] === 0) {
+//         let key = [nums[l], nums[m], nums[r]].sort().join(",");
+//         if (!triplets[key]) {
+//           res.push([nums[l], nums[m], nums[r]]);
+//           triplets[key] = true;
+//         }
+//         break;
+//       } else if (nums[l] + nums[m] + nums[r] > 0) {
+//         break;
+//       } else if (nums[l] === nums[m] && nums[m] === nums[r]) {
+//         return res;
+//       }
+//     }
+
+//     r--;
+//     if (r === l + 1 || nums[r] < 0) {
+//       r = nums.length - 1;
+//       l++;
+//     }
+//   }
+
+//   return res;
+// }
 // @lc code=end
-console.log(threeSum([-1, 0, 1, 2, -1, -4]));
-// console.log(threeSum([12,-8,7,2,-15,8,8,-8,-14,-4,-5,7,9,11,-4,-15,-6,1,-14,4,3,10,-5,2,1,6,11,2,-2,-5,-7,-6,2,-15,11,-6,8,-4,2,1,-1,4,-6,-15,1,5,-15,10,14,9,-8,-6,4,-6,11,12,-15,7,-1,-9,9,-1,0,-4,-1,-12,-2,14,-9,7,0,-3,-4,1,-2,12,14,-10,0,5,14,-1,14,3,8,10,-8,8,-5,-2,6,-11,12,13,-7,-12,8,6,-13,14,-2,-5,-11,1,3,-6]));
