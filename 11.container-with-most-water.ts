@@ -6,6 +6,27 @@
 
 // @lc code=start
 function maxArea(height: number[]): number {
+  // using two pointers
+  let l = 0;
+  let r = height.length - 1;
+  let maxArea = 0;
+
+  while (l < r) {
+    const area = (r - l) * Math.min(height[l], height[r]);
+    maxArea = Math.max(area, maxArea);
+
+    if (height[l] < height[r]) {
+      l++;
+    } else {
+      r--;
+    }
+  }
+
+  return maxArea;
+}
+
+/*******************FIRST SOLUTION *******************/
+function firstSolution(height: number[]): number {
   let largestArea = 0;
   let hightestNum = 0;
 
@@ -30,4 +51,5 @@ function maxArea(height: number[]): number {
 
   return largestArea;
 }
+
 // @lc code=end
