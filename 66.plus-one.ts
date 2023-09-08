@@ -6,24 +6,19 @@
 
 // @lc code=start
 function plusOne(digits: number[]): number[] {
-  let incNum = 1;
   for (let i = digits.length - 1; i >= 0; i--) {
-    let lastnum = digits[i] + incNum;
-
-    if (lastnum >= 10) {
-      digits[i] = lastnum % 10;
-      incNum = Math.floor(lastnum / 10);
-      if (!digits[i - 1]) {
-        digits.unshift(incNum);
-        break;
-      }
-      continue;
-    } else {
-      digits[i] = lastnum;
-      break;
+    if (digits[i] < 9) {
+      digits[i]++;
+      return digits;
+    }
+    digits[i] = 0;
+    if (!digits[i - 1]) {
+      digits.unshift(1);
+      return digits;
     }
   }
 
   return digits;
 }
+
 // @lc code=end
