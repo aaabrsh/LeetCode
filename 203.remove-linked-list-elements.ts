@@ -27,6 +27,7 @@
 // }
 
 function removeElements(head: ListNode | null, val: number): ListNode | null {
+  // take the current element and set it to the start of the 'prev' list
   let cur = head;
   let res = new ListNode();
   let res_head = res;
