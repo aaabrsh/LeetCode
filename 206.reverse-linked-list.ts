@@ -18,21 +18,38 @@
  */
 
 function reverseList(head: ListNode | null): ListNode | null {
-  const values: number[] = [];
   let cur = head;
+  let prev = null;
+  let next = null;
 
   while (cur) {
-    values.push(cur.val);
-    cur = cur.next;
+    next = cur.next;
+    cur.next = prev;
+    prev = cur;
+    cur = next;
   }
 
-  let res = new ListNode();
-  const res_head = res;
-  for (let i = values.length - 1; i >= 0; i--) {
-    res.next = { val: values[i], next: null };
-    res = res.next;
-  }
-
-  return res_head.next;
+  return prev;
 }
+
+/*******************FIRST SOLUTION *******************/
+// collect all the values, and create a new list by reversing the values
+// function secondSolution(head: ListNode | null): ListNode | null {
+//   const values: number[] = [];
+//   let cur = head;
+
+//   while (cur) {
+//     values.push(cur.val);
+//     cur = cur.next;
+//   }
+
+//   let res = new ListNode();
+//   const res_head = res;
+//   for (let i = values.length - 1; i >= 0; i--) {
+//     res.next = { val: values[i], next: null };
+//     res = res.next;
+//   }
+
+//   return res_head.next;
+// }
 // @lc code=end
