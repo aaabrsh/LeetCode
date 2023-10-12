@@ -20,34 +20,44 @@
  */
 
 function isSameTree(p: TreeNode | null, q: TreeNode | null): boolean {
-  // compare strings
-  return JSON.stringify(p) === JSON.stringify(q);
+  if (!p && !q) {
+    return true;
+  } else if (!p || !q) {
+    return false;
+  }
 
-  //   let pCur = p;
-  //   let qCur = q;
+  const queueP: TreeNode[] = [p];
+  const queueQ: TreeNode[] = [q];
 
-  //   const queueP: TreeNode[] = [pCur];
-  //   const queueQ: TreeNode[] = [qCur];
+  // bfs
+  while (queueP.length > 0) {
+    let tempP = queueP.shift();
+    let tempQ = queueQ.shift();
 
-  //   while (queueP.length > 0 && queueQ.length > 0) {
-  //     let tempP = queueP.shift();
-  //     let tempQ = queueQ.shift();
+    // if their values are different or
+    // if the left or right child is null while the other has value
+    if (
+      tempP.val !== tempQ.val ||
+      (tempP.left && !tempQ.left) ||
+      (!tempP.left && tempQ.left) ||
+      (tempP.right && !tempQ.right) ||
+      (!tempP.right && tempQ.right)
+    ) {
+      return false;
+    }
 
-  //     if (
-  //       tempP?.val !== tempQ?.val ||
-  //       tempP?.left?.val !== tempQ?.left?.val ||
-  //       tempP?.right?.val !== tempQ?.right?.val
-  //     ) {
-  //       return false;
-  //     }
+    if (tempP.left) queueP.push(tempP.left);
+    if (tempP.right) queueP.push(tempP.right);
+    if (tempQ.left) queueQ.push(tempQ.left);
+    if (tempQ.right) queueQ.push(tempQ.right);
+  }
 
-  //     if (tempP) queueP.push(tempP?.left);
-  //     if (tempQ) queueP.push(tempQ?.left);
-
-  //     if (tempP?.right) queueP.push(tempP?.right);
-  //     if (tempQ?.right) queueP.push(tempQ?.right);
-  //   }
-
-  //   return true;
+  return true;
 }
+
+/*******************FIRST SOLUTION *******************/
+// comapre the two as strings
+// function firstSolution(p: TreeNode | null, q: TreeNode | null): boolean {
+//   return JSON.stringify(p) === JSON.stringify(q);
+// }
 // @lc code=end
