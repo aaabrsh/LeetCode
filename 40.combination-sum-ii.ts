@@ -9,7 +9,6 @@ function combinationSum2(candidates: number[], target: number): number[][] {
   candidates = candidates.sort((a, b) => a - b);
 
   const combinations: number[][] = [];
-  const combinations_hash: { [key: string]: boolean } = {};
 
   const buildCombinations = (
     iteration: number,
@@ -26,13 +25,10 @@ function combinationSum2(candidates: number[], target: number): number[][] {
 
       const temp = [...combination, candidates[i]].sort((a, b) => a - b);
 
-      if (combinations_hash[temp.toString()]) return;
-
       let newSum = sum + candidates[i];
 
       if (newSum === target) {
         combinations.push(temp);
-        combinations_hash[temp.toString()] = true;
         return;
       } else if (newSum < target) {
         buildCombinations(iteration - 1, i + 1, temp, newSum);
