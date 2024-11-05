@@ -5,7 +5,7 @@
 
 <div align="center">
     <a href="https://leetcode.com/aaabrsh/">
-         <img style="width: 80%" src="https://leetcode-stats-six.vercel.app/?username=aaabrsh&theme=dark" alt="Abraham Alemayehu's Leetcode Stats">
+         <img style="width: 80%" src="https://leetcard.jacoblin.cool/aaabrsh?theme=dark&font=Encode%20Sans%20Condensed" alt="Abraham Alemayehu's Leetcode Stats">
     </a>
 </div>
 
